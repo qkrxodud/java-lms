@@ -37,5 +37,9 @@
 - [x] 강의의 정보가 필요.
 
 
+
+### 프로그래밍 요구사항
+- 앞 단계에서 구현한 도메인 모델을 DB 테이블과 매핑하고, 데이터를 저장한다.
+
 ## 온라인 코드 리뷰 과정
 * [텍스트와 이미지로 살펴보는 온라인 코드 리뷰 과정](https://github.com/next-step/nextstep-docs/tree/master/codereview)
