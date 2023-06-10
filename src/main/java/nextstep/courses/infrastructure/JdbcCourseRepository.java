@@ -4,6 +4,8 @@ import nextstep.courses.domain.Course;
 import nextstep.courses.domain.CourseRepository;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
@@ -26,6 +28,7 @@ public class JdbcCourseRepository implements CourseRepository {
     @Override
     public Course findById(Long id) {
         String sql = "select id, title, creator_id, created_at, updated_at from course where id = ?";
+
         RowMapper<Course> rowMapper = (rs, rowNum) -> new Course(
                 rs.getLong(1),
                 rs.getString(2),
@@ -34,6 +37,19 @@ public class JdbcCourseRepository implements CourseRepository {
                 toLocalDateTime(rs.getTimestamp(5)));
         return jdbcTemplate.queryForObject(sql, rowMapper, id);
     }
+
+    @Override
+    public int update(Course course) {
+        String sql = "update course set title=?, creator_id=?, created_at=?";
+        return jdbcTemplate.update(sql, course.getTitle(), course.getCreatorId(), course.getCreatedAt());
+    }
+
+    @Override
+    public int delete(Long id) {
+        String sql = "delete from course where id = ?";
+        return jdbcTemplate.update(sql, id);
+    }
+
 
     private LocalDateTime toLocalDateTime(Timestamp timestamp) {
         if (timestamp == null) {
