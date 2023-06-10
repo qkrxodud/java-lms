@@ -6,19 +6,27 @@ import java.time.LocalDate;
 
 public class Session {
     private static final String NOT_RECRUITING_SESSION = "모집중인 강이가 아닙니다.";
-
     private Long id;
+    private String title;
     private SessionDuration sessionDuration;
     private ImgFile imageFile;
     private boolean free = false;
     private SessionType status = SessionType.READY;
     private Students students;
 
-    public Session(Long id, String imageFile, LocalDate startedAt, LocalDate endedAt) {
+    public Session(Long id, String title, String imageFile, LocalDate startedAt, LocalDate endedAt) {
         this.id = id;
+        this.title = title;
         this.students = new Students();
         this.imageFile = new ImgFile(imageFile);
         sessionDuration = new SessionDuration(startedAt, endedAt);
+    }
+
+    public Session(Long id, String title, boolean free, SessionType status) {
+        this.id = id;
+        this.title = title;
+        this.free = free;
+        this.status = status;
     }
 
     public void putStudent(NsUser nsUser) {
@@ -34,6 +42,10 @@ public class Session {
         if (!SessionType.RECRUITING.isRecruiting(status)) {
             throw new IllegalArgumentException(NOT_RECRUITING_SESSION);
         }
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void switchToPaidCourse() {

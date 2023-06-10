@@ -11,14 +11,14 @@ class SessionsTest {
 
     @Test
     void 강의_중복_등록() {
-        LocalDate start = LocalDate.of(2023, 6, 15);
-        LocalDate end = LocalDate.of(2023, 6, 15);
+        LocalDate start = LocalDate.of(2023, 6, 28);
+        LocalDate end = LocalDate.of(2023, 7, 5);
 
         Sessions sessions = new Sessions();
-        sessions.putEntity(new Session(1L, "coby.jpg", start, end));
+        sessions.putEntity(new Session(1L, "Object를 잘 사용하자!","coby.jpg", start, end));
 
         assertThatThrownBy(() -> {
-            sessions.putEntity(new Session(1L, "coby.jpg", start, end));
+            sessions.putEntity(new Session(1L, "Object를 잘 사용하자!","coby.jpg", start, end));
         }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("이미 등록된 강의 입니다.");
     }
@@ -35,10 +35,10 @@ class SessionsTest {
 
     @Test
     void 강의_없는값_삭제() {
-        LocalDate start = LocalDate.of(2023, 6, 15);
-        LocalDate end = LocalDate.of(2023, 6, 15);
+        LocalDate start = LocalDate.of(2023, 6, 28);
+        LocalDate end = LocalDate.of(2023, 7, 5);
 
-        Session session = new Session(1L, "coby.jpg", start, end);
+        Session session = new Session(1L, "Object를 잘 사용하자!","coby.jpg", start, end);
 
         Sessions sessions = new Sessions();
         assertThatThrownBy(() -> {
